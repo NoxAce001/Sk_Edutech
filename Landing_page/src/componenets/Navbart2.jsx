@@ -1,10 +1,12 @@
 
 
-// Tushar ka bnaya navbar
 import React, { useState, useEffect } from 'react';
 
 const Navbart2 = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const navItems = [
     {
@@ -87,30 +89,54 @@ const Navbart2 = () => {
     },
   ];
 
-  
+  useEffect(() => {
+    const handleScroll = () => {
+      // Track if user has scrolled at all
+      if (window.scrollY > 10) {
+        setHasScrolled(true);
+      }
+      
+      // Track if user has scrolled beyond threshold
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);   
 
   return (
     <div 
-   >
-        <div 
-        className="top-0 left-0 right-0 flex  gap-15 p-1 shadow-md items-center w-full bg-white"
-        // className={`fixed top-0 left-0 w-full z-20 flex gap-15 shadow-md items-center transition-transform duration-400 
-        // `}
-        >
+    // className='bg-white z-20'
+    // className="fixed top-0 left-0 right-0 z-10 flex  p-1 shadow-md items-center w-full bg-white"
+    >
+      {/* Static navbar that's always visible at the top of the page on initial load */}
 
+      {
+
+      (
+        <div 
+        className="fixed top-0 left-0 w-full z-20 flex gap-15 shadow-md items-center bg-white"
+        >
           {/* Logo */}
-          <div className="py-4 w-44 ml-15 ">
-           <img src='/public/assets/Logo.jpg'/>
+          <div className="py-4 w-44 ml-15">
+            <img src='/public/assets/Logo.jpg' alt="Logo"/>
           </div>
 
           {/* Navigation */}
-          <nav className="hidden lg:flex ">
+          <nav className="hidden lg:flex">
             <ul className="flex">
               {navItems.map((item, index) => (
                 <li 
                   key={index} 
                   className="relative group"
-                
+                  onMouseEnter={() => setActiveDropdown(index)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <a 
                     href="#" 
@@ -172,6 +198,7 @@ const Navbart2 = () => {
             </button>
           </div>
         </div>
+      )}
       
     </div>
   );
