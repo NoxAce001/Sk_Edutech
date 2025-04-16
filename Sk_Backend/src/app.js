@@ -41,7 +41,9 @@ import paymentRouter from "./routes/payment.routes.js"
 import courseRouter from "./routes/Courses.routes.js"
 import institueRouter from "./routes/institute.routes.js"
 import EnquiryStudent from "./routes/enquiryStudent.route.js";
-import adminRouter from "./routes/admin.routes.js"
+import adminRouter from "./routes/admin.routes.js";
+// import marqueeRoutes from "./routes/marqueeRoutes.js";
+// app.use("/api/v1/marquee", marqueeRoutes);
 //router declaration
 //app.get <= this was working previously becoz we are writing the routes and controller at same place
 // now we separate the routes so we have to add middleware for using routes

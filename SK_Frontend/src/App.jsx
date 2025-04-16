@@ -1,8 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import ProfileSection from "./pages/Profile/Profile";
-import ProfileDetails from "./pages/Profile/Profile_details";
 import StudentProfileDetails from "./pages/Manage_students/Showing_students/Student_profile_details";
 
 import Sidebar from "./components/Sidebar"; 
@@ -26,25 +23,22 @@ import CourseForm from "./pages/Courses/CourseForm";
 import CourseUpdateForm from "./pages/Courses/UpdateCourse";
 
 import { StudentProvider } from "./context/StudentContext";
+import MarqueeManager from "./pages/Marqueline";
 
 const App = () => {
   return (
     <StudentProvider>
       <div className="h-screen flex flex-col">
-        {/* Navbar */}
-        <Navbar />
 
         {/* Main Content */}
         <div className="flex flex-1">
-          {/* Sidebar */}
+
           <Sidebar />
  
           {/* Content Area */}
           <div className="flex-1 bg-gray-100 p-6 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} /> 
-              <Route path="/profile" element={<ProfileSection />} />
-              <Route path="/profile_details" element={<ProfileDetails />} />
               <Route path="/admin-wallet" element={<AdminWalletApproval />} />
 
               <Route path="/enquiry" element={<EnquiryForm />} />
@@ -56,6 +50,8 @@ const App = () => {
               <Route path="/apply-certificate" element={<CertificateManagement />} />
 
               <Route path="/enquiry-list" element={<EnquiryList />} />
+
+              <Route path="/marqueeline" element={<MarqueeManager />} />              
 
               <Route path="/Notes" element={<NotesDashboard />} />
               <Route path="/AddNote" element={<AddNote />} />

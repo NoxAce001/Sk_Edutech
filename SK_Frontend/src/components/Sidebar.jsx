@@ -17,6 +17,7 @@ import { BiSolidInstitution } from "react-icons/bi";
 import { GrGallery } from "react-icons/gr";
 import { TbHomePlus } from "react-icons/tb";
 import { RiBookShelfLine } from "react-icons/ri";
+import MarqueeManager from "../pages/Marqueline";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { title: "Dashboard", icon: <LayoutPanelLeft className="w-5 h-5" />, link: "/" },
+    { title: "Marquee Line", link: "/marqueeline" },
     {
       title: "Institute Portal",
       icon: <BiSolidInstitution className="w-5 h-5" />,
@@ -66,7 +68,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transition-transform duration-300 md:relative md:translate-x-0 z-40 ${
+        className={`fixed top-0 left-0 h-full w-64  shadow-md bg-white text-blue transition-transform duration-300 md:relative md:translate-x-0 z-40 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:block`}
       >
@@ -79,7 +81,7 @@ const Sidebar = () => {
                   to={item.link}
                   className={({ isActive }) =>
                     `flex items-center gap-3 py-2 px-4 rounded text-lg font-medium transition-colors ${
-                      isActive ? "bg-gray-700" : "hover:bg-gray-700"
+                      isActive ? "bg-gray-400" : "hover:bg-gray-200"
                     }`
                   }
                 >
@@ -89,7 +91,7 @@ const Sidebar = () => {
                 <div>
                   <button
                     onClick={() => toggleSection(item.stateKey)}
-                    className="w-full flex justify-between items-center py-2 px-4 rounded hover:bg-gray-700 text-left"
+                    className="w-full flex justify-between items-center py-2 px-4 rounded hover:bg-gray-200 text-left"
                   >
                     <span className="flex items-center gap-2">{item.icon} {item.title}</span>
                     {openSections[item.stateKey] ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -102,7 +104,7 @@ const Sidebar = () => {
                             to={subItem.link}
                             className={({ isActive }) =>
                               `flex items-center gap-2 py-2 px-4 rounded transition-colors ${
-                                isActive ? "bg-blue-600" : "hover:bg-gray-700"
+                                isActive ? "bg-gray-400" : "hover:bg-gray-200"
                               }`
                             }
                           >
