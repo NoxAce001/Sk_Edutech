@@ -1,15 +1,67 @@
-const cloudinary = require("cloudinary").v2;
-const streamifier = require("streamifier");
+// const cloudinary = require("../config/cloudinary");
+// const multer = require("multer");
+// const ImageModel = require("../models/ImageModel");
 
-cloudinary.config({
-    cloud_name: "dsnd3sa2d",
-    api_key: "383315855981714",
-    api_secret: "bwCfI6f6lZyTiFdeHZQFypYs68w",
-  });
+// // Multer storage config (store file in memory)
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage });
+
+// // Upload Image to Cloudinary & Save in MongoDB
+// exports.uploadImage = async (req, res) => {
+//   try {
+//     // Ensure file exists
+//     if (!req.file) {
+//       return res.status(400).json({ error: "No file uploaded" });
+//     }
+
+//     // Upload to Cloudinary
+//     const result = await cloudinary.uploader.upload_stream(
+//       { folder: "upload" },
+//       async (error, result) => {
+//         if (error) return res.status(500).json({ error: "Upload failed" });
+
+//         // Save image details to MongoDB
+//         const newImage = new ImageModel({
+//           name: req.body.name,
+//           imageUrl: result.secure_url
+//         });
+
+//         await newImage.save();
+//         res.status(201).json({ message: "Image uploaded successfully!", data: newImage });
+//       }
+//     );
+
+//     // Pipe file to Cloudinary
+//     req.file.stream.pipe(result);
+//   } catch (error) {
+//     console.error("Error uploading image:", error);
+//     res.status(500).json({ error: "Server error" });
+//   }
+// };
+
+// Fetch All Uploaded Images
+// exports.getImages = async (req, res) => {
+//   try {
+//     const images = await ImageModel.find();
+//     res.json(images);
+//   } catch (error) {
+//     res.status(500).json({ error: "Error fetching images" });
+//   }
+// };
+
+
+
+// const cloudinary = require("cloudinary").v2;
+const streamifier = require("streamifier");
+const cloudinary = require("../utils/cloudinary");
+
+// cloudinary.config({
+//     cloud_name: "dsnd3sa2d",
+//     api_key: "383315855981714",
+//     api_secret: "bwCfI6f6lZyTiFdeHZQFypYs68w",
+//   });
   
-//   CLOUDINARY_CLOUD_NAME=dsnd3sa2d
-// CLOUDINARY_API_KEY=383315855981714
-// CLOUDINARY_API_SECRET=bwCfI6f6lZyTiFdeHZQFypYs68w
+
 
 exports.uploadImage = async (req, res) => {
   try {

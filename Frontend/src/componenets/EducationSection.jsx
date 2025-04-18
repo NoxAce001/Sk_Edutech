@@ -1,80 +1,14 @@
-import React from 'react';
+import React , { useEffect, useState }from 'react';
+import axios from "axios";
 // center wala container jisme left right scrolling images hain
 const EducationSection = () => {
 
-    // const [students, setStudents] = useState([]); //ye api k liye hai manually images ko hatake
-    // const [centers, setCenters] = useState([]);
+    const [students, setStudents] = useState([]); //ye api k liye hai manually images ko hatake
+    const [centers, setCenters] = useState([]);
   
     // ise hata do pure ko sirf check krne k liye manual image laggaye
   // Left side student data
-  const students = [
-    {
-        name: "Lalit Kumar",
-        image: "https://randomuser.me/api/portraits/men/1.jpg",
-      },
-      {
-        name: "Dabali Kumari",
-        image: "https://randomuser.me/api/portraits/women/2.jpg",
-      },
-      { name: "Salma", image: "https://randomuser.me/api/portraits/women/3.jpg" },
-      { name: "Salman", image: "https://randomuser.me/api/portraits/men/4.jpg" },
-      { name: "Jyoti", image: "https://randomuser.me/api/portraits/women/5.jpg" },
-      {
-        name: "Rohit Kumar",
-        image: "https://randomuser.me/api/portraits/men/6.jpg",
-      },
-      {
-        name: "Neeraj Kumar",
-        image: "https://randomuser.me/api/portraits/men/7.jpg",
-      },
-      {
-        name: "Rajesh Upaday",
-        image: "https://randomuser.me/api/portraits/men/8.jpg",
-      },
-      {
-        name: "Satish Kumar",
-        image: "https://randomuser.me/api/portraits/men/9.jpg",
-      },
-      {
-        name: "Pooja Sharma",
-        image: "https://randomuser.me/api/portraits/women/10.jpg",
-      },
-  ];
 
-  // Right side center data
-  const centers = [
-    {
-        name: "Lalit Kumar",
-        image: "https://randomuser.me/api/portraits/men/1.jpg",
-      },
-      {
-        name: "Dabali Kumari",
-        image: "https://randomuser.me/api/portraits/women/2.jpg",
-      },
-      { name: "Salma", image: "https://randomuser.me/api/portraits/women/3.jpg" },
-      { name: "Salman", image: "https://randomuser.me/api/portraits/men/4.jpg" },
-      { name: "Jyoti", image: "https://randomuser.me/api/portraits/women/5.jpg" },
-      {
-        name: "Rohit Kumar",
-        image: "https://randomuser.me/api/portraits/men/6.jpg",
-      },
-      {
-        name: "Neeraj Kumar",
-        image: "https://randomuser.me/api/portraits/men/7.jpg",
-      },
-      {
-        name: "Rajesh Upaday",
-        image: "https://randomuser.me/api/portraits/men/8.jpg",
-      },
-      {
-        name: "Satish Kumar",
-        image: "https://randomuser.me/api/portraits/men/9.jpg",
-      },
-      {
-        name: "Pooja Sharma",
-        image: "https://randomuser.me/api/portraits/women/10.jpg",
-      },
-  ];
 
   // Define CSS for the continuous scrolling animation
   const scrollAnimationStyle = `
@@ -92,6 +26,39 @@ const EducationSection = () => {
     }
   `;
 
+  useEffect(() => {
+    const fetchStudentsImages = async() => {
+        try {
+          const response = await axios.get("http://localhost:5000/homeimage/recentStudentImg")
+
+          console.log("studentsimage" , response.data.data);
+          const studentsdataarray = response.data.data;
+          setStudents(studentsdataarray);
+
+        } catch (error) {
+          console.error("error fetching images " , error)
+        setStudents([]);
+        }
+    };
+    fetchStudentsImages();
+  } , [])
+
+  useEffect(() => {
+    const fetchCenterImages = async() => {
+        try {
+          const response = await axios.get("http://localhost:5000/homeimage/recentCenterImg")
+
+          console.log("centerImages" , response.data.data);
+          const centerImgArray = response.data.data;
+          setCenters(centerImgArray);
+
+        } catch (error) {
+          console.error("error fetching images " , error)
+          setCenters([]);
+        }
+    };
+    fetchCenterImages();
+  } , [])
   return (
     <>
       {/* Include the CSS animation */}
@@ -111,6 +78,7 @@ const EducationSection = () => {
                   className="flex flex-col items-center p-4 bg-white m-4 rounded-md shadow"
                 >
                   <img
+                    loading='lazy'
                     src={student.image}
                     alt={student.name}
                     className="w-24 h-24 object-cover border border-gray-300"
@@ -127,7 +95,7 @@ const EducationSection = () => {
           <h2 className="text-2xl font-bold text-center text-[#003366] mb-4">
             No.1 Education Brand in India
           </h2>
-          <p className="text-gray-700">
+          <p className="text-gray-700 ">
             SK EDUTECH is critical in the 21st century. India, in the last two
             decades has seen a new dawn with the help of computers and
             technologies. The government is trying to reach out to every citizen
